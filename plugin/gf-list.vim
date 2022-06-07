@@ -16,7 +16,7 @@ function s:GfList(filename, line, col) abort
         return
     elseif len(l:files) == 1
         " exec "AsyncRun st -e nvim ".l:files[0]
-        call jobstart (['st', '-e', 'nvim', ff[0]])
+        call jobstart (['st', '-e', 'nvim', l:files[0]])
         " call setpos('.', [0,a:line,a:col,0])
         return
     endif
