@@ -15,8 +15,9 @@ function s:GfList(filename, line, col) abort
         echohl ErrorMsg | echomsg "Can't find file \"".a:filename."\" in path" | echohl none
         return
     elseif len(l:files) == 1
-        exec "edit ".l:files[0]
-        call setpos('.', [0,a:line,a:col,0])
+        " exec "AsyncRun st -e nvim ".l:files[0]
+        call jobstart (['st', '-e', 'nvim', ff[0]])
+        " call setpos('.', [0,a:line,a:col,0])
         return
     endif
 
