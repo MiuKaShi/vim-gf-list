@@ -15,14 +15,14 @@ function s:GfList(filename, line, col) abort
         echohl ErrorMsg | echomsg "Can't find file \"".a:filename."\" in path" | echohl none
         return
     elseif len(l:files) == 1
-        return
 		if exists('g:neovide')
 			call jobstart (['neovide', l:files[0]])
 		else
 			" exec "AsyncRun st -e nvim ".l:files[0]
-			call jobstart (['at', '-e', 'nvim', l:files[0]])
+			call jobstart (['st', '-e', 'nvim', l:files[0]])
 			" call setpos('.', [0,a:line,a:col,0])
 		endif
+        return
     endif
 
     let l:list=[]
