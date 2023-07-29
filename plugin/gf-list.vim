@@ -5,6 +5,12 @@ endif
 if !exists('g:GfList_map_v_gf')
     let g:GfList_map_v_gf = 'gf'
 endif
+if !exists('g:GfList_terminal')
+    let g:GfList_terminal = getenv('TERMINAL')
+endif
+if !exists('g:GfList_editor')
+    let g:GfList_editor = getenv('EDITOR')
+endif
 
 execute "nnoremap ".g:GfList_map_n_gf." :call <sid>Map_n_gf()<cr>"
 execute "vnoremap ".g:GfList_map_v_gf." :<c-u>call <sid>Map_v_gf()<cr>"
@@ -18,9 +24,7 @@ function s:GfList(filename, line, col) abort
 		if exists('g:neovide')
 			call jobstart (['neovide', l:files[0]])
 		else
-			" exec "AsyncRun st -e nvim ".l:files[0]
-			call jobstart (['st', '-e', 'nvim', l:files[0]])
-			" call setpos('.', [0,a:line,a:col,0])
+			call jobstart ([g:GfList_terminal, '-e', g:GfList_editor, l:files[0]])
 		endif
         return
     endif
